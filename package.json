@@ -1,0 +1,11 @@
+{
+  "name": "statistik-survey-sokrates",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "seed": "npm run seed --prefix server",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "dev": "npm run dev:server & npm run dev:client"
+  }
+}
