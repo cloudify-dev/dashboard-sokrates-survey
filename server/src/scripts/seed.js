@@ -11,7 +11,9 @@ const BATCHES = [
     semester: "Genap 2024/2025",
     name: 0,
     tenant: 1,
+    location: null,
     metrics: [2, 3, 4, 5],
+    menu: null,
     saran: 6,
   },
   {
@@ -19,7 +21,9 @@ const BATCHES = [
     semester: "Ganjil 2025/2026",
     name: 0,
     tenant: 1,
+    location: null,
     metrics: [2, 3, 4, 5],
+    menu: null,
     saran: 7,
   },
   {
@@ -27,7 +31,9 @@ const BATCHES = [
     semester: "Genap 2025/2026",
     name: 0,
     tenant: 1,
+    location: 2,
     metrics: [3, 4, 5, 6],
+    menu: 7,
     saran: 8,
   },
 ];
@@ -87,6 +93,10 @@ function readBatch(config) {
     const solusi = toScore(row[config.metrics[2]]);
     const kepuasan = toScore(row[config.metrics[3]]);
     const saran = cleanText(row[config.saran]);
+    const menu =
+      config.menu === null ? null : cleanText(row[config.menu]);
+    const schoolLocation =
+      config.location === null ? null : cleanText(row[config.location]);
     const participantName = cleanText(row[config.name]);
 
     if (
@@ -94,7 +104,8 @@ function readBatch(config) {
       responsif === null &&
       solusi === null &&
       kepuasan === null &&
-      saran === null
+      saran === null &&
+      menu === null
     ) {
       continue;
     }
@@ -103,10 +114,12 @@ function readBatch(config) {
       config.semester,
       tenant,
       participantName,
+      schoolLocation,
       kemudahan,
       responsif,
       solusi,
       kepuasan,
+      menu,
       saran,
     ]);
   }
@@ -118,7 +131,7 @@ async function seed() {
   const allRows = [];
   for (const batch of BATCHES) {
     const rows = readBatch(batch);
-    const withSaran = rows.filter((r) => r[7]).length;
+    const withSaran = rows.filter((r) => r[9]).length;
     console.log(`${batch.semester}: ${rows.length} baris (${withSaran} ada saran)`);
     allRows.push(...rows);
   }
@@ -132,10 +145,12 @@ async function seed() {
         semester VARCHAR(32) NOT NULL,
         tenant VARCHAR(255) NOT NULL,
         participant_name VARCHAR(255) NULL,
+        school_location VARCHAR(255) NULL,
         kemudahan TINYINT UNSIGNED NULL,
         responsif TINYINT UNSIGNED NULL,
         solusi TINYINT UNSIGNED NULL,
         kepuasan TINYINT UNSIGNED NULL,
+        menu TEXT NULL,
         saran TEXT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         INDEX idx_semester (semester),
@@ -144,15 +159,16 @@ async function seed() {
       ) ENGINE=InnoDB
     `);
 
-    // Pastikan kolom saran/participant ada jika tabel lama.
-    const [cols] = await conn.query(
-      `SHOW COLUMNS FROM survey_responses LIKE 'saran'`
-    );
-    if (!cols.length) {
+    const [cols] = await conn.query(`SHOW COLUMNS FROM survey_responses`);
+    const names = new Set(cols.map((c) => c.Field));
+    if (!names.has("school_location")) {
       await conn.query(
-        `ALTER TABLE survey_responses
-           ADD COLUMN participant_name VARCHAR(255) NULL AFTER tenant,
-           ADD COLUMN saran TEXT NULL AFTER kepuasan`
+        `ALTER TABLE survey_responses ADD COLUMN school_location VARCHAR(255) NULL AFTER participant_name`
+      );
+    }
+    if (!names.has("menu")) {
+      await conn.query(
+        `ALTER TABLE survey_responses ADD COLUMN menu TEXT NULL AFTER kepuasan`
       );
     }
 
@@ -163,7 +179,7 @@ async function seed() {
       const chunk = allRows.slice(i, i + chunkSize);
       await conn.query(
         `INSERT INTO survey_responses
-          (semester, tenant, participant_name, kemudahan, responsif, solusi, kepuasan, saran)
+          (semester, tenant, participant_name, school_location, kemudahan, responsif, solusi, kepuasan, menu, saran)
          VALUES ?`,
         [chunk]
       );

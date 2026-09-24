@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./App.css";
 import AnalisPersemester from "./pages/AnalisPersemester";
 import DashboardTren from "./pages/DashboardTren";
+import DetailResponden from "./pages/DetailResponden";
+import PerbandinganCsi from "./pages/PerbandinganCsi";
 import SaranKritik from "./pages/SaranKritik";
 
 const MENUS = [
@@ -14,6 +16,16 @@ const MENUS = [
     id: "analis",
     label: "Analis Persemester",
     desc: "Sheet per semester",
+  },
+  {
+    id: "csi",
+    label: "Perbandingan CSI",
+    desc: "Naik / turun tenant",
+  },
+  {
+    id: "responden",
+    label: "Detail Responden",
+    desc: "Data individu",
   },
   {
     id: "saran",
@@ -66,6 +78,8 @@ export default function App() {
       <div className="content">
         {page === "tren" && <DashboardTren />}
         {page === "analis" && <AnalisPersemester />}
+        {page === "csi" && <PerbandinganCsi />}
+        {page === "responden" && <DetailResponden />}
         {page === "saran" && <SaranKritik />}
       </div>
     </div>

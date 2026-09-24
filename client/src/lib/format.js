@@ -64,3 +64,43 @@ export const SEMESTERS = [
   "Ganjil 2025/2026",
   "Genap 2025/2026",
 ];
+
+export const QUESTIONS_BY_SEMESTER = {
+  "Genap 2024/2025": {
+    kemudahan:
+      "Seberapa mudah Anda menggunakan aplikasi ini untuk mendukung kegiatan mengajar?",
+    responsif:
+      "Apakah BINUS Sokrates responsif dalam menangani pertanyaan atau masalah Anda?",
+    solusi:
+      "Apakah solusi yang BINUS Sokrates berikan sudah tepat untuk setiap masalah yang terjadi?",
+    kepuasan:
+      "Seberapa puas Anda secara keseluruhan terhadap aplikasi dan layanannya?",
+    saran:
+      "Masukan atau saran untuk meningkatkan aplikasi maupun layanannya",
+  },
+  "Ganjil 2025/2026": {
+    kemudahan:
+      "Seberapa mudah Anda menggunakan aplikasi ini untuk mendukung kegiatan mengajar?",
+    responsif:
+      "Apakah Sokrates responsif dalam menangani pertanyaan atau masalah Anda?",
+    solusi:
+      "Apakah solusi yang diberikan oleh Sokrates sudah tepat untuk setiap masalah yang terjadi?",
+    kepuasan:
+      "Seberapa puas Anda secara keseluruhan terhadap aplikasi dan layanannya?",
+    saran:
+      "Masukan atau saran untuk meningkatkan aplikasi maupun layanannya",
+  },
+  "Genap 2025/2026": {
+    kemudahan:
+      "Seberapa mudah Anda menggunakan aplikasi ini untuk mendukung kegiatan mengajar?",
+    responsif:
+      "Apakah BINUS Sokrates responsif dalam menangani pertanyaan atau masalah Anda?",
+    solusi:
+      "Apakah solusi yang BINUS Sokrates berikan sudah tepat untuk setiap masalah yang terjadi?",
+    kepuasan:
+      "Seberapa puas Anda secara keseluruhan terhadap aplikasi dan layanannya?",
+    menu: "Menu yang sering digunakan / bermanfaat bagi Anda/sekolah",
+    saran:
+      "Masukan atau saran untuk meningkatkan aplikasi maupun layanannya",
+  },
+};

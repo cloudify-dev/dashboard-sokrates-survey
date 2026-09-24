@@ -26,6 +26,7 @@ app.get("/api/health", async (_req, res) => {
 app.use("/api/trends", trendsRouter);
 app.use("/api/analysis", analysisRouter);
 app.use("/api/feedback", feedbackRouter);
+app.use("/api/participants", require("./routes/participants"));
 
 app.listen(PORT, () => {
   console.log(`API berjalan di http://localhost:${PORT}`);

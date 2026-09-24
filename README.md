@@ -4,8 +4,8 @@ Web app lokal (React + Node.js + MySQL) untuk tren kepuasan BINUS Sokrates linta
 
 ## Stack
 
-- **Frontend:** React (Vite) + Recharts — `http://localhost:5173`
-- **Backend:** Express API — `http://localhost:5050`
+- **Frontend:** React (Vite) + Recharts — `http://localhost:5174`
+- **Backend:** Express API — `http://localhost:5051`
 - **Database:** MySQL (`sokrates_survey`)
 
 ## Data sumber
@@ -54,7 +54,7 @@ Terminal 2 — UI:
 npm run dev --prefix client
 ```
 
-Buka **http://localhost:5173**.
+Buka **http://localhost:5174**.
 
 ## Menu
 
